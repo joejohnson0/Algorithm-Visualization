@@ -1,7 +1,9 @@
 # Algorithm-Visualization
 Coursework Project for Intro to Algorithm
 2014-2015学年秋季学期算法设计与分析课程 大作业
+
 姓名：\*\*\*
+
 学号：1321\*\*\*\*
 
 我的大作业是一个由6个网页组成的网站，每个网页演示了一种算法执行过程中数组的即时变化。
