@@ -1,0 +1,109 @@
+﻿<html>  
+    <head>  
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script language="javascript" type="text/javascript">
+        var A = new Array();
+        var n;
+        n = 8;
+        A=[0,10,4,6,3,8,2,5,7];
+        function changeContent()
+        {
+            var x=document.getElementById("mytb").rows[0].cells;
+            for(var i=1;i<=8;i++)
+            {
+                x[i-1].innerHTML="<h1>"+A[i]+"</h1>";
+            }
+        }
+        function main()
+        {
+            A[1]=document.getElementById("num1").value;
+            A[2]=document.getElementById("num2").value;
+            A[3]=document.getElementById("num3").value;
+            A[4]=document.getElementById("num4").value;
+            A[5]=document.getElementById("num5").value;
+            A[6]=document.getElementById("num6").value;
+            A[7]=document.getElementById("num7").value;
+            A[8]=document.getElementById("num8").value;
+            changeContent();
+            bubbleSort(A);
+        }
+        var i = 8;
+        var j = 0;
+        function bubbleSort(arr) 
+        {
+            var speed=document.getElementById("speed").value;
+            window.setInterval(function(){bub_single_step(arr);},speed);
+        }
+        function bub_single_step(arr) 
+        {
+            if (arr[j] > arr[j + 1]) 
+            {
+                var tempExchangVal = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = tempExchangVal;
+            }
+            changeContent();
+            if(j<i-1) j++;
+            else if(j==i-1) 
+            {
+                j=0;
+                if(i>0) i--;
+            }
+        }
+    </script>
+    <title>冒泡排序</title>
+    </head>
+    <body bgcolor="#97CBFF">
+        <center>
+        <h1>
+            <b>冒泡排序</b>
+        </h1>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="insertion_sort.html">插入排序</a>
+            <a href="bubble_sort.html">冒泡排序</a>
+            <a href="01_knapsack.html">0-1背包</a>
+            <a href="complete_knapsack.html">完全背包</a>
+            <a href="optimalBST.html">最优二叉搜索树</a>
+        </nav>
+        <table id="mytb" cellpadding="38.2%" cellspacing="38.2%">
+            <tr>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+                <td><h1></h1></td>
+            </tr>
+        </table>
+        <h2 id="prompt">请输入要排序的8个数字(个位数)</h2>
+        <table cellpadding="5%" cellspacing="5%">
+            <tr>
+                <td><input type="text" size="3" id="num1" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num2" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num3" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num4" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num5" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num6" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num7" maxlength="1" /></td>
+                <td><input type="text" size="3" id="num8" maxlength="1" /></td>
+            </tr>
+        </table>
+        <p>
+            演示速度：
+            <select id="speed">
+                <option value="100">超快</option>
+                <option value="500">快</option>
+                <option value="1000">正常</option>
+                <option value="3000">慢</option>
+                <option value="5000">超慢</option>
+            </select>
+            <input type="button" value="开始排序" onclick="main()" /><br /><br />
+            下一趟排序开始之前请重置
+            <input type="button" value="重置" onclick="window.location.reload()">
+        </p>
+        </center>
+    </body>
+</html>

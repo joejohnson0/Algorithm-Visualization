@@ -1,0 +1,231 @@
+<html>  
+    <head>  
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script language="javascript" type="text/javascript">
+        var A=[
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+              ];
+        var w=[0,2,2,6,5,4];
+        var v=[0,6,3,5,4,6];
+        var n;
+        var c;
+        c=10;
+        n=5;
+        var i;
+        i=n-1;
+        var j;
+        j=0;
+        function changeContent()
+        {            
+            for(var i=1;i<=5;i++)
+            {
+                var x=document.getElementById("mytb").rows[i].cells;
+                for(var j=1;j<=11;j++)
+                {
+                    x[j].innerHTML="<h2>"+A[i][j-1]+"</h2>";
+                }
+            }
+        }
+        function main()
+        {
+            knapsack_01();
+        }
+
+        function knapsack_01()
+        {
+            for(var k = 0; k <= c; k++)
+            { 
+                if(k < w[n])
+                {
+                    A[n][k] = 0;
+                }
+                else
+                {
+                    A[n][k] = v[n];
+                }
+            }
+            changeContent();
+
+            var speed=document.getElementById("speed").value;
+            window.setInterval(function(){knapsack_01_single_step();},speed);            
+        }
+        function knapsack_01_single_step()
+        {
+            if(j < w[i])
+            {   
+                A[i][j] = A[i+1][j];
+            }              
+            else A[i][j] = A[i+1][j] > A[i+1][j-w[i]] + v[i] ? A[i+1][j] : A[i+1][j-w[i]] + v[i];
+            
+            changeContent();
+
+            if(j<=c)
+            {
+                j++;
+            }
+            else
+            {
+                j=0;
+                if(i>=1)
+                {
+                    i--;
+                }
+            }
+        }
+    </script>
+    <title>0-1背包</title>
+    </head>
+    <body bgcolor="#97CBFF">
+        <center>
+        <h1>
+            <b>0-1背包</b>
+        </h1>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="insertion_sort.html">插入排序</a>
+            <a href="bubble_sort.html">冒泡排序</a>
+            <a href="01_knapsack.html">0-1背包</a>
+            <a href="complete_knapsack.html">完全背包</a>
+            <a href="optimalBST.html">最优二叉搜索树</a>
+        </nav>
+        <p>
+            <b>问题描述：</b>
+            <br />
+            给定n种物品和一背包，每种物品均只有一件。物品i的重量是wi，其价值为vi，背包的容量为C。
+            <br />
+            问应如何选择装入背包的物品，使得装入背包中物品的总价值最大?
+        </p>
+
+        <h1>输入</h1>
+
+        <h2>
+            n=5<br />
+            C=10<br />
+        <table cellpadding="10%">
+            <tr>
+                <td><h2>w数组</h2></td>
+                <td><h2>2</h2></td>
+                <td><h2>2</h2></td>
+                <td><h2>6</h2></td>
+                <td><h2>5</h2></td>
+                <td><h2>4</h2></td>
+            </tr>
+            <tr>
+                <td><h2>v数组</h2></td>
+                <td><h2>6</h2></td>
+                <td><h2>3</h2></td>
+                <td><h2>5</h2></td>
+                <td><h2>4</h2></td>
+                <td><h2>6</h2></td>
+            </tr>
+        </table>
+        </h2>
+        <h1>DP数组</h1>
+        <table id="mytb" cellpadding="10%" cellspacing="10%" frame="border" rules="all" >
+            <tr>
+                <td><h2></h2></td>
+                <td><h2>0</h2></td>
+                <td><h2>1</h2></td>
+                <td><h2>2</h2></td>
+                <td><h2>3</h2></td>
+                <td><h2>4</h2></td>
+                <td><h2>5</h2></td>
+                <td><h2>6</h2></td>
+                <td><h2>7</h2></td>
+                <td><h2>8</h2></td>
+                <td><h2>9</h2></td>
+                <td><h2>10</h2></td>
+            </tr>
+            <tr>
+                <td><h2>1</h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+            </tr>
+            <tr>
+                <td><h2>2</h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+            </tr>
+            <tr>
+                <td><h2>3</h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+            </tr>
+            <tr>
+                <td><h2>4</h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+            </tr>
+            <tr>
+                <td><h2>5</h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+                <td><h2></h2></td>
+            </tr>
+        </table>
+        
+        <p>
+            演示速度：
+            <select id="speed">
+                <option value="100">超快</option>
+                <option value="500">快</option>
+                <option value="1000">正常</option>
+                <option value="3000">慢</option>
+                <option value="5000">超慢</option>
+            </select>
+            <input type="button" value="开始背包" onclick="main()" /><br /><br />
+            下一趟背包开始之前请重置
+            <input type="button" value="重置" onclick="window.location.reload()">
+        </p>
+        </center>
+    </body>
+</html>

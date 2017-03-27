@@ -1,0 +1,372 @@
+﻿<html>  
+    <head>  
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <script language="javascript" type="text/javascript">
+        var e=[
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0]
+              ];
+        var w=[
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0]
+              ];
+        var r=[
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0]
+              ];
+        var p=[0,0.15,0.1,0.05,0.1,0.2];
+        var q=[0.05,0.1,0.05,0.05,0.05,0.1];
+        var n;
+        n=5;
+        var i;
+        i=1;
+        var j;
+        j=1;
+        var l;
+        l=1;
+        function changeContent()
+        {            
+            for(var i=1;i<=6;i++)
+            {
+                var x=document.getElementById("e_table").rows[i].cells;
+                for(var j=0;j<=5;j++)
+                {
+                    x[j+1].innerHTML=e[i][j];
+                }
+            }
+            for(var i=1;i<=6;i++)
+            {
+                var x=document.getElementById("w_table").rows[i].cells;
+                for(var j=0;j<=5;j++)
+                {
+                    x[j+1].innerHTML=w[i][j];
+                }
+            }
+            for(var i=1;i<=5;i++)
+            {
+                var x=document.getElementById("root_table").rows[i].cells;
+                for(var j=1;j<=5;j++)
+                {
+                    x[j].innerHTML=r[i][j];
+                }
+            }
+        }
+        function main()
+        {
+            optimalBST();
+        }
+
+        function optimalBST()
+        {
+            for(var i=1;i<=6;i++)
+            {
+                e[i][i-1]=q[i-1];
+                w[i][i-1]=q[i-1];
+            }
+
+            changeContent();
+
+            var speed=document.getElementById("speed").value;
+            window.setInterval(function(){optimalBST_single_step();},speed);            
+        }
+        function optimalBST_single_step()
+        {            
+            w[i][j]=w[i][j-1]+p[j]+q[j];
+            e[i][j]=9;
+            for(var k=i;k<=j;k++)
+            {
+                var t=e[i][k-1]+e[k+1][j]+w[i][j];
+                if(t<e[i][j])
+                {
+                    e[i][j]=t;
+                    r[i][j]=k;
+                }
+            }
+
+            changeContent();
+
+            if(i<n-l+1)
+            {
+                i++;
+                j=i+l-1;
+            }
+            else
+            {   
+                if(l<=n)
+                {
+                    l++;
+                    i=1;
+                    j=i+l-1;
+                }
+            }
+        }
+    </script>
+    <title>最优二叉搜索树</title>
+    </head>
+    <body bgcolor="#97CBFF">
+        <center>
+        <h1>
+            <b>最优二叉搜索树</b>
+        </h1>
+        <nav>
+            <a href="index.html">首页</a>
+            <a href="insertion_sort.html">插入排序</a>
+            <a href="bubble_sort.html">冒泡排序</a>
+            <a href="01_knapsack.html">0-1背包</a>
+            <a href="complete_knapsack.html">完全背包</a>
+            <a href="optimalBST.html">最优二叉搜索树</a>
+        </nav>
+        <p>
+            <b>问题描述：</b>
+            <br />
+            最优二叉搜索树。输入：关键字个数n，关键字搜索频率pi，伪关键字概率qi。
+        </p>
+
+        <h1>输入</h1>
+
+        <h2>
+            n=5<br />
+        <table cellpadding="10%">
+            <tr>
+                <td><h2>p数组</h2></td>
+                <td><h2></h2></td>
+                <td><h2>0.15</h2></td>
+                <td><h2>0.1</h2></td>
+                <td><h2>0.05</h2></td>
+                <td><h2>0.1</h2></td>
+                <td><h2>0.2</h2></td>
+            </tr>
+            <tr>
+                <td><h2>q数组</h2></td>
+                <td><h2>0.05</h2></td>
+                <td><h2>0.1</h2></td>
+                <td><h2>0.05</h2></td>
+                <td><h2>0.05</h2></td>
+                <td><h2>0.05</h2></td>
+                <td><h2>0.1</h2></td>
+            </tr>
+        </table>
+        </h2>
+        <h1>e,w,root三张表</h1>
+        <table>
+        <tr>
+        <td>
+        <table id="e_table" cellpadding="10%" cellspacing="10%" frame="border" rules="all">
+            <tr>
+                <td>e</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </td>
+        <td>
+        <table id="w_table" cellpadding="10%" cellspacing="10%" frame="border" rules="all" >
+            <tr>
+                <td>w</td>
+                <td>0</td>
+                <td>1</h2></td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </td>
+        <td>
+        <table id="root_table" cellpadding="10%" cellspacing="10%" frame="border" rules="all" >
+            <tr>
+                <td>root</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </td>
+        </tr>
+        </table>
+        
+        <p>
+            演示速度：
+            <select id="speed">
+                <option value="100">超快</option>
+                <option value="500">快</option>
+                <option value="1000">正常</option>
+                <option value="3000">慢</option>
+                <option value="5000">超慢</option>
+            </select>
+            <input type="button" value="开始dp" onclick="main()" /><br /><br />
+            下一趟dp开始之前请重置
+            <input type="button" value="重置" onclick="window.location.reload()">
+        </p>
+        </center>
+    </body>
+</html>
